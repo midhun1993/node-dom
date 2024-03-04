@@ -1,11 +1,23 @@
+import Element from "./element";
+import { transformToArray, buildPossibleSelectors, generateMap } from "./utils";
 class Document {
-    public _data:object | null = null;
+    _data:object | null;
     constructor(parsedObject:object) {
         this._data = parsedObject;
-        this.buildMap();
+        this._buildMap();
     }
-    buildMap(){
-        
+
+    _buildMap():void{
+        if(this._data) {
+            // let initialValue:any = [];
+            // transformToArray(this._data, initialValue);
+            // buildPossibleSelectors(initialValue);
+            generateMap(this._data);
+        }
+    }
+
+    public getElementById(id:string): Element | null{
+         return null;  
     }
 }
 
