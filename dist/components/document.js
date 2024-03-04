@@ -34,5 +34,8 @@ class Document {
         let parsedSelector = (0, utils_1.parseSelector)(id, 'queryAll');
         return null;
     }
+    getData() {
+        return this._data;
+    }
 }
 exports.default = Document;

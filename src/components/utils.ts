@@ -6,8 +6,8 @@ function parseSelector(selector: string, type:string = 'query' )
     const instructionBuilder:any = {
         "id": function(str: string){
             return {
-                multiple: false,
-                instruction: [
+                findAll: false,
+                instructionSet: [
                     {
                         column: 'id',
                         match: str
