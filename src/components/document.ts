@@ -1,13 +1,13 @@
 import Element from "./element";
 import { parseSelector } from "./utils";
-import SearchEngine from '../core/search-engine';
+import SearchEngine from '../core/search/engine';
 class Document {
     _data:object | null;
     constructor(parsedObject:object) {
         this._data = parsedObject;
     }
 
-    public getElementById(id:string): Element | null{
+    public getElementById(id:string): any{
          let parsedSelector = parseSelector(id, 'id');
          let engine= new SearchEngine(this, parsedSelector);
          return engine.getResult();

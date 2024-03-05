@@ -2,15 +2,18 @@
 function parseSelector(selector: string, type:string = 'query' )
 {   
     //Improve: clean the selector
-    selector = selector.toLowerCase();
+    //selector = selector.toLowerCase();
+    
     const instructionBuilder:any = {
         "id": function(str: string){
             return {
                 findAll: false,
                 instructionSet: [
                     {
-                        column: 'id',
-                        match: str
+                        type: 'id',
+                        match: str,
+                        policy: 'NON_STRICT',
+                        scope: 'SINGLE',
                     }
                 ]
             }

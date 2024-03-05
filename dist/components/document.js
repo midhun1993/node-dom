@@ -4,14 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("./utils");
-const search_engine_1 = __importDefault(require("../core/search-engine"));
+const engine_1 = __importDefault(require("../core/search/engine"));
 class Document {
     constructor(parsedObject) {
         this._data = parsedObject;
     }
     getElementById(id) {
         let parsedSelector = (0, utils_1.parseSelector)(id, 'id');
-        let engine = new search_engine_1.default(this, parsedSelector);
+        let engine = new engine_1.default(this, parsedSelector);
         return engine.getResult();
     }
     getElementsByClassName(id) {
