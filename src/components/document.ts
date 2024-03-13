@@ -14,25 +14,23 @@ class Document {
          return engine.getResult();
     }
 
-    public getElementsByClassName(id:string): any{
-        let rules  = getRuleSet(`.${id}`);
+    public getElementsByClassName(className:string): any{
+        let rules  = getRuleSet(`.${className}`);
         let engine= new SearchEngine(this, rules);
         return engine.getResult();
     }
 
-    public getElementsByTagName(id:string): Element | null{
-        let parsedSelector = parseSelector(id, 'tag');
-        return null
+    public getElementsByTagName(tag:string): any{
+        let rules  = getRuleSet(`${tag}`);
+        let engine= new SearchEngine(this, rules);
+        return engine.getResult();
     }
 
-    public getElementsByName(id:string): Element | null{
-        let parsedSelector = parseSelector(id, 'name');
-        return null
-    }
-
-    public querySelector(id:string): Element | null{
-        let parsedSelector = parseSelector(id, 'query');
-        return null
+    
+    public querySelector(selector:string): any{
+        let rules  = getRuleSet(selector);
+        let engine= new SearchEngine(this, rules);
+        return engine.getResult();
     }
 
     public querySelectorAll(id:string): Element | null{

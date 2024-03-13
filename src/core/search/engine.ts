@@ -20,7 +20,7 @@ class Engine {
             let ruleFlag = that.ruleMatcher.getRuleStatus(node, rule);
             switch(ruleFlag) {
                 case 'ABORT':
-                    yield null;
+                    return(null);
                     break;
                 case 'MATCHED_ABORT':
                     yield node;
@@ -58,11 +58,13 @@ class Engine {
         while(ruleSet.length > 0) {
             let result:any = []
             let instruction = ruleSet.pop();
-            this.result.forEach((node: any)=> {
-              let matched:any= this.match(node, instruction);
-              for (let val of matched){
-                result.push(val);
-              }
+            this.result.forEach((nodeParent: any)=> {
+             nodeParent?.childNodes.forEach((node:any) => {
+                    let matched:any= this.match(node, instruction);
+                    for (let val of matched){
+                        result.push(val);
+                    }
+                })
             });
             this.result = result;
         }

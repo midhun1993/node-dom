@@ -4,13 +4,15 @@ console.time("Start")
 const document = HtmlParser.parse(htmlString);
 //let elem = document.getElementById("Hello");
 //console.log(elem)
-let elem = document.getElementsByClassName("heading");
-console.log(elem)
+//let elem = document.getElementsByClassName("heading");
+let elem = document.getElementsByTagName("h1");
+//console.log(elem)
 console.timeEnd("Start")
 
-document.getElementsByTagName("hello");
-document.getElementsByName("hello");
-document.querySelector("hello");
-document.querySelectorAll("hello");
+let elem2 = document.querySelector("body #Hello.heading");
+console.log(elem2.innerHTML);
+// elem2.innerHTML = '<h3>hey babe</h3>';
+// console.log(document.querySelector("body").innerHTML);
+//document.querySelectorAll("hello");
 // const htmlStrings = parse5.serialize(document);
 // console.log(htmlStrings);

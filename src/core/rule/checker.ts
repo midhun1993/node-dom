@@ -22,6 +22,12 @@ const Checker:any = {
          }
          let tokenList = new TokenList(classObject['value']);
          return tokenList.contains(matchText);
+     },
+     'TAG': function (node:any, matchText:string):boolean {
+        if(!node.tagName) {
+            return false;
+        }
+        return node.tagName.toLowerCase() == matchText.toLowerCase();
      }
 }
 export default Checker;

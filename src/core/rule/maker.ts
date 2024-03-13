@@ -1,18 +1,30 @@
+enum POLICY  {
+    'non_strt' = 'NON_STRICT',
+    'strt' = 'STRICT'
+}
 
 const RuleMaker : any = {
-    "ID": function(str:string, policy:any) {
+    "ID": function(str:string, policyFlag:string) {
         return  {
             type: 'ID',
             match: str.substring(1, str.length),
-            policy: 'NON_STRICT',
+            policy: POLICY[policyFlag as keyof typeof POLICY] ,
             scope: 'SINGLE',
         }
     },
-    "CLASS": function(str:string, policy:any) {
+    "CLASS": function(str:string, policyFlag:any) {
         return  {
             type: 'CLASS',
             match: str.substring(1, str.length),
-            policy: 'NON_STRICT',
+            policy: POLICY[policyFlag as keyof typeof POLICY] ,
+            scope: 'SINGLE',
+        }
+    },
+    "TAG": function(str:string, policyFlag:any) {
+        return  {
+            type: 'TAG',
+            match: str,
+            policy: POLICY[policyFlag as keyof typeof POLICY] ,
             scope: 'SINGLE',
         }
     }
@@ -28,19 +40,33 @@ function identifySelector(s:string) {
     return selector;
 }
 
-function processChunk(c:any, policy:any) {
-    return RuleMaker[identifySelector(c)](c, policy);
+function processChunk(c:any, policyFlag:any) {
+    return RuleMaker[identifySelector(c)](c, policyFlag);
+}
+
+function isPolicyDefinition(chunk:any):boolean {
+    return chunk.trim() === '>';
 }
 
 function getRuleSet(selector:string): any {
-    let selectorChunks = selector.split(/S/).reverse();
+    let selectorChunks:string[] = selector.split(/\s{1,7}/).reverse();
     let ruleSet:any[] = [];
+    let policyFlag = 'non_strt';
     while(selectorChunks.length > 0) {
         let chunk = selectorChunks.pop();
-        ruleSet.push(processChunk(chunk, true));
+        if(isPolicyDefinition(chunk)){
+            policyFlag = 'strt';
+        } else {
+            ruleSet.push(processChunk(chunk, policyFlag));
+            if(policyFlag == 'strt'){
+                policyFlag = 'non_strt';
+            }
+        }
+
+      
     }
    return {
-    ruleSet
+    ruleSet : ruleSet.reverse()
    };
 }
 

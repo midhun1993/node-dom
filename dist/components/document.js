@@ -15,22 +15,20 @@ class Document {
         let engine = new engine_1.default(this, rules);
         return engine.getResult();
     }
-    getElementsByClassName(id) {
-        let rules = (0, maker_1.getRuleSet)(`.${id}`);
+    getElementsByClassName(className) {
+        let rules = (0, maker_1.getRuleSet)(`.${className}`);
         let engine = new engine_1.default(this, rules);
         return engine.getResult();
     }
-    getElementsByTagName(id) {
-        let parsedSelector = (0, utils_1.parseSelector)(id, 'tag');
-        return null;
+    getElementsByTagName(tag) {
+        let rules = (0, maker_1.getRuleSet)(`${tag}`);
+        let engine = new engine_1.default(this, rules);
+        return engine.getResult();
     }
-    getElementsByName(id) {
-        let parsedSelector = (0, utils_1.parseSelector)(id, 'name');
-        return null;
-    }
-    querySelector(id) {
-        let parsedSelector = (0, utils_1.parseSelector)(id, 'query');
-        return null;
+    querySelector(selector) {
+        let rules = (0, maker_1.getRuleSet)(selector);
+        let engine = new engine_1.default(this, rules);
+        return engine.getResult();
     }
     querySelectorAll(id) {
         let parsedSelector = (0, utils_1.parseSelector)(id, 'queryAll');
