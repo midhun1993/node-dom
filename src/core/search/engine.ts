@@ -1,17 +1,17 @@
-import RuleMatcher from './rule/matcher';
+import RuleMatcher from '../rule/matcher';
 import HTMLElement from '../../components/element';
 
 class Engine {
-    protected instruction:any;
+    protected ruleProvider:any;
     protected document:any;
     protected result:any;
     protected ruleMatcher: RuleMatcher;
     constructor(
          document:any,
-         instruction:any
+         rules:any
     ){
         this.document = document;
-        this.instruction = instruction;
+        this.ruleProvider = rules;
         this.ruleMatcher = new RuleMatcher();
     }
     *match(node:any, rule:any):object {
@@ -54,10 +54,10 @@ class Engine {
     }
     doSearch():void{
         this.result = [this.document.getData()];
-        let { instructionSet } = this.instruction;
-        while(instructionSet.length > 0) {
+        let { ruleSet } = this.ruleProvider;
+        while(ruleSet.length > 0) {
             let result:any = []
-            let instruction = instructionSet.pop();
+            let instruction = ruleSet.pop();
             this.result.forEach((node: any)=> {
               let matched:any= this.match(node, instruction);
               for (let val of matched){

@@ -2,7 +2,8 @@ const HtmlParser = require('./dist/index');
 const htmlString = '<html><style>h1 { height: 10px;}</style><body><h1  id="Hello" style="height:20px" class="heading">Hello, world!</h1></body></html>';
 console.time("Start")
 const document = HtmlParser.parse(htmlString);
-document.getElementById("Hello");
+//let elem = document.getElementById("Hello");
+console.log(elem)
 console.timeEnd("Start")
 document.getElementsByClassName("hello");
 document.getElementsByTagName("hello");

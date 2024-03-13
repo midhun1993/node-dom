@@ -1,5 +1,6 @@
 import Element from "./element";
 import { parseSelector } from "./utils";
+import { getRuleSet } from "../core/rule/maker";
 import SearchEngine from '../core/search/engine';
 class Document {
     _data:object | null;
@@ -8,8 +9,8 @@ class Document {
     }
 
     public getElementById(id:string): any{
-         let parsedSelector = parseSelector(id, 'id');
-         let engine= new SearchEngine(this, parsedSelector);
+         let rules  = getRuleSet(`#${id}`);
+         let engine= new SearchEngine(this, rules);
          return engine.getResult();
     }
 
