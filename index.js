@@ -9,7 +9,7 @@ let elem = document.getElementsByTagName("h1");
 //console.log(elem)
 console.timeEnd("Start")
 
-let elem2 = document.querySelector("body #Hello.heading");
+let elem2 = document.querySelector("body h2#Hello.heading");
 console.log(elem2.innerHTML);
 // elem2.innerHTML = '<h3>hey babe</h3>';
 // console.log(document.querySelector("body").innerHTML);

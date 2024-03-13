@@ -27,11 +27,42 @@ const RuleMaker : any = {
             policy: POLICY[policyFlag as keyof typeof POLICY] ,
             scope: 'SINGLE',
         }
+    },
+    "COMPOUND": function(str:string, policyFlag:any) {
+        let tempholder:string ='';
+        let selectors = [];
+        for(let i = 0; i < str.length; i++) {
+            if([".", "#"].indexOf(str.charAt(i)) == -1){
+                tempholder += str.charAt(i);
+            } else{
+                if(tempholder){
+                    selectors.push(tempholder);
+                }
+                tempholder = str.charAt(i);
+            }
+        }
+        selectors.push(tempholder);
+        let match = selectors.map(i => processChunk(i, 'non_strt'))
+        return  {
+            type: 'COMPOUND',
+            match: match,
+            policy: POLICY[policyFlag as keyof typeof POLICY] ,
+            scope: 'SINGLE',
+        }
     }
+}
+function isCompound(s:string) {
+    if(s.indexOf('.') > 0 || s.indexOf('#') > 0){
+        return true;
+    }
+    return false;
 }
 
 
 function identifySelector(s:string) {
+    if(isCompound(s)){
+        return 'COMPOUND';
+    }
     const selectorType:any = {
         '.': "CLASS",
         '#':"ID",
