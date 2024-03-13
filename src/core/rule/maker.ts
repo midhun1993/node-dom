@@ -2,7 +2,15 @@
 const RuleMaker : any = {
     "ID": function(str:string, policy:any) {
         return  {
-            type: 'id',
+            type: 'ID',
+            match: str.substring(1, str.length),
+            policy: 'NON_STRICT',
+            scope: 'SINGLE',
+        }
+    },
+    "CLASS": function(str:string, policy:any) {
+        return  {
+            type: 'CLASS',
             match: str.substring(1, str.length),
             policy: 'NON_STRICT',
             scope: 'SINGLE',

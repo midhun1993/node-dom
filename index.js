@@ -3,9 +3,11 @@ const htmlString = '<html><style>h1 { height: 10px;}</style><body><h1  id="Hello
 console.time("Start")
 const document = HtmlParser.parse(htmlString);
 //let elem = document.getElementById("Hello");
+//console.log(elem)
+let elem = document.getElementsByClassName("heading");
 console.log(elem)
 console.timeEnd("Start")
-document.getElementsByClassName("hello");
+
 document.getElementsByTagName("hello");
 document.getElementsByName("hello");
 document.querySelector("hello");

@@ -16,8 +16,9 @@ class Document {
         return engine.getResult();
     }
     getElementsByClassName(id) {
-        let parsedSelector = (0, utils_1.parseSelector)(id, 'class');
-        return null;
+        let rules = (0, maker_1.getRuleSet)(`.${id}`);
+        let engine = new engine_1.default(this, rules);
+        return engine.getResult();
     }
     getElementsByTagName(id) {
         let parsedSelector = (0, utils_1.parseSelector)(id, 'tag');

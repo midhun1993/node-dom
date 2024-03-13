@@ -14,9 +14,10 @@ class Document {
          return engine.getResult();
     }
 
-    public getElementsByClassName(id:string): Element | null{
-        let parsedSelector = parseSelector(id, 'class');
-        return null
+    public getElementsByClassName(id:string): any{
+        let rules  = getRuleSet(`.${id}`);
+        let engine= new SearchEngine(this, rules);
+        return engine.getResult();
     }
 
     public getElementsByTagName(id:string): Element | null{
