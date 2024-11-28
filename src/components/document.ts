@@ -33,9 +33,10 @@ class Document {
         return engine.getResult();
     }
 
-    public querySelectorAll(id:string): Element | null{
-        let parsedSelector = parseSelector(id, 'queryAll');
-        return null
+    public querySelectorAll(selector:string): any{
+        let rules  = getRuleSet(selector, 'MULTIPLE');
+        let engine= new SearchEngine(this, rules);
+        return engine.getResult(true);
     }
 
     public getData() {

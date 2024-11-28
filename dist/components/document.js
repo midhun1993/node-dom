@@ -3,7 +3,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const utils_1 = require("./utils");
 const maker_1 = require("../core/rule/maker");
 const engine_1 = __importDefault(require("../core/search/engine"));
 class Document {
@@ -30,9 +29,10 @@ class Document {
         let engine = new engine_1.default(this, rules);
         return engine.getResult();
     }
-    querySelectorAll(id) {
-        let parsedSelector = (0, utils_1.parseSelector)(id, 'queryAll');
-        return null;
+    querySelectorAll(selector) {
+        let rules = (0, maker_1.getRuleSet)(selector, 'MULTIPLE');
+        let engine = new engine_1.default(this, rules);
+        return engine.getResult(true);
     }
     getData() {
         return this._data;

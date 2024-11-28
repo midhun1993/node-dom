@@ -4,31 +4,31 @@ enum POLICY  {
 }
 
 const RuleMaker : any = {
-    "ID": function(str:string, policyFlag:string) {
+    "ID": function(str:string, policyFlag:string, scope:any) {
         return  {
             type: 'ID',
             match: str.substring(1, str.length),
             policy: POLICY[policyFlag as keyof typeof POLICY] ,
-            scope: 'SINGLE',
+            scope: scope,
         }
     },
-    "CLASS": function(str:string, policyFlag:any) {
+    "CLASS": function(str:string, policyFlag:any, scope:any) {
         return  {
             type: 'CLASS',
             match: str.substring(1, str.length),
             policy: POLICY[policyFlag as keyof typeof POLICY] ,
-            scope: 'SINGLE',
+            scope: scope,
         }
     },
-    "TAG": function(str:string, policyFlag:any) {
+    "TAG": function(str:string, policyFlag:any, scope:any) {
         return  {
             type: 'TAG',
             match: str,
             policy: POLICY[policyFlag as keyof typeof POLICY] ,
-            scope: 'SINGLE',
+            scope: scope,
         }
     },
-    "COMPOUND": function(str:string, policyFlag:any) {
+    "COMPOUND": function(str:string, policyFlag:any, scope:any) {
         let tempholder:string ='';
         let selectors = [];
         for(let i = 0; i < str.length; i++) {
@@ -42,12 +42,12 @@ const RuleMaker : any = {
             }
         }
         selectors.push(tempholder);
-        let match = selectors.map(i => processChunk(i, 'non_strt'))
+        let match = selectors.map(i => processChunk(i, 'non_strt', 'SINGLE'))
         return  {
             type: 'COMPOUND',
             match: match,
             policy: POLICY[policyFlag as keyof typeof POLICY] ,
-            scope: 'SINGLE',
+            scope: scope,
         }
     }
 }
@@ -71,15 +71,15 @@ function identifySelector(s:string) {
     return selector;
 }
 
-function processChunk(c:any, policyFlag:any) {
-    return RuleMaker[identifySelector(c)](c, policyFlag);
+function processChunk(c:any, policyFlag:any, scope:any) {
+    return RuleMaker[identifySelector(c)](c, policyFlag, scope);
 }
 
 function isPolicyDefinition(chunk:any):boolean {
     return chunk.trim() === '>';
 }
 
-function getRuleSet(selector:string): any {
+function getRuleSet(selector:string, scope ='SINGLE'): any {
     let selectorChunks:string[] = selector.split(/\s{1,7}/).reverse();
     let ruleSet:any[] = [];
     let policyFlag = 'non_strt';
@@ -88,7 +88,7 @@ function getRuleSet(selector:string): any {
         if(isPolicyDefinition(chunk)){
             policyFlag = 'strt';
         } else {
-            ruleSet.push(processChunk(chunk, policyFlag));
+            ruleSet.push(processChunk(chunk, policyFlag, scope));
             if(policyFlag == 'strt'){
                 policyFlag = 'non_strt';
             }

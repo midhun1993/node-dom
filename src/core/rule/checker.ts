@@ -34,7 +34,7 @@ const Checker:any = {
             let { type , match} = rule;
             return Checker[type](node, match);
        }) 
-        return validatedCases.indexOf(false) == -1 ? true : false;
+       return validatedCases.indexOf(false) == -1 ? true : false;
      }
 }
 export default Checker;
