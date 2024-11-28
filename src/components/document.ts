@@ -1,5 +1,3 @@
-import Element from "./element";
-import { parseSelector } from "./utils";
 import { getRuleSet } from "../core/rule/maker";
 import SearchEngine from '../core/search/engine';
 class Document {
